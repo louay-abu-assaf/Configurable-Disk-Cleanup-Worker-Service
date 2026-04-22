@@ -10,7 +10,6 @@ Instead of dealing with manual server maintenance or generic junk cleaners, this
 * **Automated Email Reports:** Whenever files are cleared, you’ll receive an email detailing the execution time, files removed, and total storage freed.
 * **Set and Forget:** Runs on a continuous loop or can be scheduled via Windows Task Scheduler.
 
----
 
 ## ⚙️ How to Configure
 
@@ -24,7 +23,6 @@ Before running the app, you need to configure your settings. Open the `appsettin
 * `IntervalInSeconds`: How often the background loop runs (e.g., `3600` = runs every hour).
 * `EmailSettings`: Your standard SMTP credentials inside to send the automated cleanup report.
 
----
 
 ## 🚀 How to Run and Test Locally
 
@@ -37,7 +35,6 @@ To try this out on your own Windows PC:
 5. **Check the Logs:** Watch your terminal to see the service scan your folders and announce what it *would* delete. If valid files were found, check your email for the test report!
 6. **Test on Unimportant Files:** Create some dummy files in the target directories that match your configured extensions. Run the app again to see them listed in the logs and included in the email report.
 
----
 
 ## 🌍 How to Deploy on a Server / Another Machine
 
@@ -64,16 +61,18 @@ dotnet publish -c Release -o "C:\Services\FileVaultCleaner"
 sc create FileVaultCleaner binPath= "C:\YourPath\Configurable_Cleanup.exe" start= auto
 ```
 
+
 > Note: Replace `C:\YourPath\Configurable_Cleanup.exe` with the actual path to your published executable.
 
-> Recommended to update your services.msc to set the startup type to "Manual" and start the service manually to ensure it works before setting it to "Automatic".
+> Note: Recommended to update your services.msc to set the startup type to "Manual" and start the service manually to ensure it works before setting it to "Automatic".
+
 
 ### Step 3: Set up Windows Task Scheduler
 If you want the service to run on a predictable schedule (e.g., every night at 2:00 AM) without needing a terminal open:
 
 1. Open **Task Scheduler** on Windows.
 2. Click **Create Task** on the right.
-3. Give it a name (e.g., `FileVault Cleaner`). Check the box for **"Run whether user is logged on or not"**.
+3. Give it a name (e.g., `My Configurable Cleaner`). Check the box for **"Run whether user is logged on or not"**.
 4. Go to the **Triggers** tab, click **New**, and set your desired schedule.
 5. Go to the **Actions** tab, click **New**, select **Start a program**, and browse to `Configurable_Cleanup.exe` inside your publish folder.
 6. Click **OK**. The service will now run automatically perfectly in the background!
